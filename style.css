@@ -1,0 +1,1129 @@
+/* ════════════════════════════════════════════════════
+   AMELIA — PRIMO COMPLEANNO · style.css
+   Palette: rosa cipria · crema · beige · oro tenue
+════════════════════════════════════════════════════ */
+
+/* ─── VARIABILI ─────────────────────────────────── */
+:root {
+  --rosa:        #E8B4B8;
+  --rosa-mid:    #D4909A;
+  --rosa-light:  #F5D8DA;
+  --rosa-pale:   #FDF0F1;
+  --crema:       #FFF9F2;
+  --beige:       #F2E8DC;
+  --beige-mid:   #E5D8C8;
+  --gold:        #C9A770;
+  --gold-mid:    #B8904A;
+  --gold-light:  #EDD9B4;
+  --warm-white:  #FFFEF9;
+
+  --text-h:  #3D2B1F;   /* titoli */
+  --text-b:  #6B5042;   /* corpo */
+  --text-l:  #A88878;   /* secondario */
+
+  --f-display: 'Playfair Display', Georgia, serif;
+  --f-script:  'Dancing Script', cursive;
+  --f-body:    'Nunito', system-ui, sans-serif;
+
+  --sh-card:   0 4px 24px rgba(180, 120, 100, 0.10);
+  --sh-soft:   0 8px 40px rgba(180, 120, 100, 0.14);
+  --sh-btn:    0 6px 24px rgba(200, 140, 120, 0.30);
+  --sh-sticker:0 8px 28px rgba(100, 60, 50, 0.18);
+
+  --r-card: 28px;
+  --r-btn:  60px;
+  --tr:     0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── RESET ─────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--f-body);
+  background: var(--crema);
+  color: var(--text-b);
+  overflow-x: hidden;
+  /* Safe area su iPhone con notch/Dynamic Island */
+  padding-left:  env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+img { display: block; max-width: 100%; height: auto; }
+button { cursor: pointer; border: none; background: none; font-family: var(--f-body); }
+figure { margin: 0; }
+
+/* ─── STILE STICKER (riutilizzabile) ────────────── */
+/* PNG con trasparenza: drop-shadow segue la sagoma del ritaglio.
+   Doppio drop-shadow bianco crea un bordo luminoso stile sticker. */
+.sticker img,
+.gallery-sticker img,
+.invite-sticker-float img,
+.open-photo img,
+.open-sticker-sm img {
+  display: block;
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 9px rgba(255, 255, 255, 0.85))
+    drop-shadow(0 10px 22px rgba(100, 60, 50, 0.22));
+}
+
+/* ════════════════════════════════════════════════════
+   LOADING OVERLAY
+════════════════════════════════════════════════════ */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--warm-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.loading-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loading-balloon {
+  font-size: 3.5rem;
+  animation: balloonBob 1.1s ease-in-out infinite alternate;
+}
+.loading-text {
+  font-family: var(--f-script);
+  font-size: 1.2rem;
+  color: var(--text-l);
+  margin-top: 1rem;
+  letter-spacing: 0.05em;
+}
+@keyframes balloonBob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-12px); }
+}
+
+/* ════════════════════════════════════════════════════
+   OPEN SCREEN
+════════════════════════════════════════════════════ */
+.open-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(145deg, var(--warm-white) 0%, var(--rosa-pale) 55%, var(--beige) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  overflow: hidden;
+}
+.open-screen.visible  { opacity: 1; }
+.open-screen.fade-out { opacity: 0; pointer-events: none; }
+
+/* Stelle decorative */
+.sparkle {
+  position: absolute;
+  color: var(--gold);
+  opacity: 0.45;
+  pointer-events: none;
+  animation: sparkFloat 5s ease-in-out infinite;
+}
+.sp1 { top: 12%; left: 8%;  font-size: 1.6rem; animation-delay: 0s; }
+.sp2 { top: 20%; right: 10%; font-size: 1.1rem; animation-delay: 1.2s; color: var(--rosa); }
+.sp3 { top: 65%; left: 6%;  font-size: 1.3rem; animation-delay: 2.4s; }
+.sp4 { bottom: 18%; right: 8%; font-size: 1.8rem; animation-delay: 0.6s; color: var(--rosa); }
+.sp5 { top: 40%; right: 4%; font-size: 1rem;  animation-delay: 1.8s; }
+.sp6 { bottom: 35%; left: 12%; font-size: 1.2rem; animation-delay: 3s; color: var(--rosa); }
+
+@keyframes sparkFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg);   opacity: 0.35; }
+  50%       { transform: translateY(-16px) rotate(12deg); opacity: 0.65; }
+}
+
+/* Card centrale open screen */
+.open-card {
+  background: rgba(255, 255, 252, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(232, 180, 184, 0.28);
+  border-radius: var(--r-card);
+  padding: 3rem 3.5rem;
+  text-align: center;
+  box-shadow: var(--sh-soft);
+  max-width: 430px;
+  width: 90%;
+  position: relative;
+  z-index: 2;
+}
+.open-top-ornament {
+  color: var(--gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.55em;
+  margin-bottom: 1.2rem;
+  opacity: 0.6;
+}
+.open-envelope { font-size: 3.2rem; margin-bottom: 0.9rem; }
+.open-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--text-l);
+  margin-bottom: 0.35rem;
+}
+.open-title {
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 400;
+  color: var(--text-h);
+  margin-bottom: 0.6rem;
+}
+.open-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-b);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+.open-name {
+  font-family: var(--f-script);
+  font-size: 2.6rem;
+  color: var(--gold);
+  display: block;
+  margin-top: 0.15rem;
+}
+.open-btn {
+  background: linear-gradient(135deg, var(--rosa) 0%, var(--rosa-mid) 100%);
+  color: #fff;
+  padding: 0.9rem 2.6rem;
+  border-radius: var(--r-btn);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: var(--sh-btn);
+  transition: transform var(--tr), box-shadow var(--tr);
+}
+.open-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(200, 130, 140, 0.42);
+}
+.open-btn:active { transform: translateY(0); }
+
+/* Foto principale sull'open screen */
+.open-photo {
+  position: absolute;
+  bottom: 0;
+  right: 4%;
+  width: clamp(160px, 26vw, 280px);
+  pointer-events: none;
+  animation: photoSway 6s ease-in-out infinite;
+  z-index: 1;
+}
+.open-photo img {
+  width: 100%;
+}
+
+/* Sticker piccolo angolo in basso a sinistra */
+.open-sticker-sm {
+  position: absolute;
+  bottom: 8%;
+  left: 4%;
+  width: clamp(70px, 10vw, 110px);
+  pointer-events: none;
+  animation: photoSway 8s ease-in-out infinite 2s;
+  z-index: 1;
+}
+.open-sticker-sm img {
+  width: 100%;
+}
+
+@keyframes photoSway {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%       { transform: translateY(-12px) rotate(2deg); }
+}
+
+/* ════════════════════════════════════════════════════
+   CONTENUTO PRINCIPALE
+════════════════════════════════════════════════════ */
+.invite-content {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  position: relative;
+}
+.invite-content.visible { opacity: 1; }
+
+/* Decorazioni fisse di sfondo */
+.bg-deco-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.bd {
+  position: absolute;
+  font-size: 1.3rem;
+  opacity: 0.10;
+  animation: bdDrift 12s ease-in-out infinite;
+  color: var(--rosa);
+}
+.bd1 { top:  8%; left:  4%; animation-delay: 0s;   }
+.bd2 { top: 22%; right: 6%; animation-delay: 2s;  color: var(--gold); }
+.bd3 { top: 50%; left:  2%; animation-delay: 4s;  }
+.bd4 { top: 68%; right: 4%; animation-delay: 1.5s; color: var(--gold); }
+.bd5 { top: 85%; left:  8%; animation-delay: 3s;  }
+.bd6 { top: 38%; right: 2%; animation-delay: 5s;  }
+@keyframes bdDrift {
+  0%, 100% { transform: translateY(0)   rotate(0deg);  }
+  33%       { transform: translateY(-18px) rotate(8deg);  }
+  66%       { transform: translateY(10px) rotate(-5deg); }
+}
+
+/* Container generico */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Sezioni generiche */
+.section { padding: 5rem 0; position: relative; z-index: 1; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ════════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 7rem 1.5rem 5rem;
+  overflow: hidden;
+  background: linear-gradient(155deg, var(--warm-white) 0%, var(--rosa-pale) 50%, var(--beige) 100%);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 22% 35%, rgba(232,180,184,0.22) 0%, transparent 55%),
+    radial-gradient(circle at 80% 70%, rgba(201,167,112,0.14) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ─── Stickers nel hero ─── */
+.sticker {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Foto grande — decorazione principale hero */
+.sticker-hero {
+  width: clamp(200px, 32vw, 380px);
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%) rotate(3deg);
+  animation: stickerSway 7s ease-in-out infinite;
+  --r: 3deg;
+}
+.sticker-hero img {
+  width: 100%;
+}
+
+/* Sticker piccolo A */
+.sticker-sm { z-index: 2; }
+.sticker-a {
+  width: clamp(80px, 11vw, 130px);
+  top: 10%;
+  left: 4%;
+  animation: stickerSway 8s ease-in-out infinite 1.5s;
+  --r: -7deg;
+}
+.sticker-a img {
+  width: 100%;
+}
+
+/* Sticker piccolo B */
+.sticker-b {
+  width: clamp(75px, 10vw, 115px);
+  bottom: 18%;
+  left: 3%;
+  animation: stickerSway 9s ease-in-out infinite 3s;
+  --r: 6deg;
+}
+.sticker-b img {
+  width: 100%;
+}
+
+@keyframes stickerSway {
+  0%, 100% { transform: translateY(0) rotate(var(--r)); }
+  50%       { transform: translateY(-10px) rotate(calc(var(--r) + 3deg)); }
+}
+
+/* Testo hero */
+.hero-text {
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  max-width: 490px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(232, 180, 184, 0.55);
+  border-radius: 50px;
+  padding: 0.4rem 1.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rosa-mid);
+  backdrop-filter: blur(6px);
+  margin-bottom: 1.4rem;
+}
+.hero-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  margin-bottom: 1.2rem;
+}
+.heading-il {
+  font-family: var(--f-display);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--text-b);
+}
+.heading-name {
+  font-family: var(--f-script);
+  font-size: clamp(3.8rem, 11vw, 6.5rem);
+  line-height: 1;
+  /* Gradient testo */
+  background: linear-gradient(135deg, var(--text-h) 20%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+  color: var(--text-b);
+  font-weight: 300;
+  line-height: 1.75;
+  margin-bottom: 1.8rem;
+}
+.hero-ornament {
+  display: flex;
+  gap: 0.55rem;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 0.75rem;
+  opacity: 0.65;
+  margin-bottom: 1.1rem;
+}
+.hero-when {
+  font-family: var(--f-display);
+  font-size: clamp(1rem, 2.8vw, 1.25rem);
+  color: var(--gold);
+  font-style: italic;
+  letter-spacing: 0.06em;
+  margin-bottom: 4rem;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--text-l);
+  pointer-events: none;
+}
+.scroll-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  display: block;
+  animation: hintPulse 2.5s ease-in-out infinite;
+}
+.scroll-arrow {
+  margin-top: 0.4rem;
+  font-size: 1.1rem;
+  animation: arrowBounce 1.6s ease-in-out infinite;
+}
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.85; }
+}
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+/* ════════════════════════════════════════════════════
+   NOTA COMPLEANNO
+════════════════════════════════════════════════════ */
+.note-section { background: var(--crema); text-align: center; }
+.note-card {
+  display: inline-block;
+  background: var(--warm-white);
+  border-radius: var(--r-card);
+  padding: 2.4rem 3rem;
+  box-shadow: var(--sh-card);
+  border: 1px solid rgba(232, 180, 184, 0.2);
+  max-width: 620px;
+  width: 100%;
+  position: relative;
+}
+/* Barra colorata in cima */
+.note-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--r-card) var(--r-card) 0 0;
+  background: linear-gradient(90deg, var(--rosa-light), var(--gold-light), var(--rosa-light));
+}
+.note-emoji { font-size: 2.2rem; margin-bottom: 0.9rem; }
+.note-main {
+  font-family: var(--f-display);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--text-h);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 0.7rem;
+}
+.note-sub {
+  font-size: 0.95rem;
+  color: var(--text-l);
+  line-height: 1.75;
+}
+
+/* ════════════════════════════════════════════════════
+   COUNTDOWN
+════════════════════════════════════════════════════ */
+.countdown-section {
+  background: linear-gradient(135deg, var(--rosa-pale) 0%, var(--beige) 100%);
+  text-align: center;
+}
+.cd-label {
+  font-family: var(--f-script);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  color: var(--text-b);
+  margin-bottom: 2rem;
+}
+.cd-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.cd-item {
+  background: var(--warm-white);
+  border-radius: 20px;
+  padding: 1.2rem 1.5rem;
+  min-width: 88px;
+  box-shadow: var(--sh-card);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+}
+.cd-num {
+  display: block;
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  color: var(--text-h);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.cd-unit {
+  display: block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-l);
+}
+.cd-sep {
+  font-size: 2.2rem;
+  color: var(--rosa);
+  font-weight: 300;
+  opacity: 0.55;
+  margin-bottom: 1.4rem; /* allineato ai numeri */
+}
+.party-arrived {
+  font-family: var(--f-script);
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  color: var(--gold);
+  margin-top: 1.5rem;
+  animation: partyGlow 2s ease-in-out infinite alternate;
+}
+@keyframes partyGlow {
+  from { text-shadow: 0 0 0px transparent; }
+  to   { text-shadow: 0 0 20px rgba(201,167,112,0.4); }
+}
+
+/* ════════════════════════════════════════════════════
+   DETTAGLI
+════════════════════════════════════════════════════ */
+.details-section { text-align: center; }
+
+.section-title {
+  font-family: var(--f-display);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-h);
+  margin-bottom: 2.5rem;
+}
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.2rem;
+}
+.detail-card {
+  background: var(--warm-white);
+  border-radius: var(--r-card);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--sh-card);
+  border: 1px solid rgba(232, 180, 184, 0.14);
+  transition: transform var(--tr), box-shadow var(--tr);
+}
+.detail-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sh-soft);
+}
+.detail-icon { font-size: 1.9rem; margin-bottom: 0.7rem; }
+.detail-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-l);
+  margin-bottom: 0.5rem;
+}
+.detail-value {
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-h);
+}
+
+/* ════════════════════════════════════════════════════
+   SEZIONE INVITO
+════════════════════════════════════════════════════ */
+.invitation-section {
+  background: var(--beige);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sticker flottante nella sezione invito */
+.invite-sticker-float {
+  position: absolute;
+  top: 50%;
+  right: -2%;
+  width: clamp(100px, 14vw, 160px);
+  transform: translateY(-50%) rotate(8deg);
+  pointer-events: none;
+  animation: stickerSway 9s ease-in-out infinite 2s;
+  --r: 8deg;
+  z-index: 2;
+}
+.invite-sticker-float img {
+  width: 100%;
+}
+
+.invitation-card {
+  background: var(--warm-white);
+  border-radius: var(--r-card);
+  padding: 3rem 3.5rem;
+  box-shadow: var(--sh-card);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+/* Cuore decorativo sotto la card */
+.invitation-card::after {
+  content: '♡';
+  position: absolute;
+  bottom: -1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.4rem;
+  color: var(--rosa);
+  background: var(--beige);
+  width: 2.8rem;
+  height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(180, 120, 110, 0.15);
+}
+.invite-greeting {
+  font-family: var(--f-script);
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  color: var(--gold);
+  margin-bottom: 1.4rem;
+}
+.invite-body p {
+  font-size: clamp(0.92rem, 2vw, 1rem);
+  line-height: 1.85;
+  color: var(--text-b);
+  margin-bottom: 1.1rem;
+}
+.invite-body p:last-child { margin-bottom: 0; }
+.invite-closing {
+  margin-top: 1.8rem;
+  font-family: var(--f-script);
+  font-size: 1.25rem;
+  color: var(--rosa-mid);
+  text-align: right;
+}
+
+/* ════════════════════════════════════════════════════
+   GALLERY STICKERS
+════════════════════════════════════════════════════ */
+.sticker-gallery {
+  background: var(--crema);
+  padding: 3rem 0;
+}
+.gallery-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.gallery-sticker {
+  pointer-events: none;
+  transition: transform var(--tr);
+  animation: stickerSway 8s ease-in-out infinite;
+}
+.gallery-sticker img {
+  width: 100%;
+}
+.gs-1 {
+  width: clamp(100px, 15vw, 160px);
+  --r: -6deg;
+  animation-delay: 0s;
+}
+.gs-2 {
+  width: clamp(130px, 20vw, 200px);
+  --r: 2deg;
+  animation-delay: 1.2s;
+}
+.gs-3 {
+  width: clamp(100px, 15vw, 160px);
+  --r: 7deg;
+  animation-delay: 2.4s;
+}
+.gs-4 {
+  width: clamp(90px, 13vw, 145px);
+  --r: -4deg;
+  animation-delay: 3.6s;
+}
+
+/* ════════════════════════════════════════════════════
+   RSVP
+════════════════════════════════════════════════════ */
+.rsvp-section { text-align: center; }
+.rsvp-sub {
+  font-size: 1rem;
+  color: var(--text-l);
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+.rsvp-btn {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-mid) 100%);
+  color: #fff;
+  padding: 1rem 3.2rem;
+  border-radius: var(--r-btn);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 8px 28px rgba(180, 140, 70, 0.35);
+  transition: transform var(--tr), box-shadow var(--tr);
+}
+.rsvp-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 38px rgba(180, 140, 70, 0.48);
+}
+.rsvp-btn:active { transform: translateY(0); }
+
+/* ════════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════════ */
+.site-footer {
+  background: var(--warm-white);
+  border-top: 1px solid rgba(232, 180, 184, 0.2);
+  text-align: center;
+  padding: 4rem 1.5rem max(3rem, calc(2rem + env(safe-area-inset-bottom)));
+}
+.footer-ornament {
+  color: var(--gold);
+  font-size: 0.9rem;
+  letter-spacing: 0.55em;
+  margin-bottom: 1.2rem;
+  opacity: 0.55;
+}
+.footer-main {
+  font-family: var(--f-script);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  color: var(--text-h);
+  margin-bottom: 0.5rem;
+}
+.footer-date {
+  font-size: 0.82rem;
+  color: var(--text-l);
+  letter-spacing: 0.1em;
+}
+
+/* ════════════════════════════════════════════════════
+   MODAL RSVP
+════════════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(61, 43, 31, 0.38);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  padding: 1.5rem;
+}
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-box {
+  background: var(--warm-white);
+  border-radius: var(--r-card);
+  padding: 3rem 2.5rem;
+  max-width: 410px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(80, 40, 30, 0.22);
+  position: relative;
+  transform: scale(0.88) translateY(24px);
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.modal-overlay.open .modal-box {
+  transform: scale(1) translateY(0);
+}
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  font-size: 1rem;
+  color: var(--text-l);
+  padding: 0.3rem;
+  line-height: 1;
+  transition: color var(--tr);
+}
+.modal-close:hover { color: var(--text-h); }
+.modal-icon { font-size: 3rem; margin-bottom: 0.8rem; }
+.modal-heading {
+  font-family: var(--f-display);
+  font-size: 1.8rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-h);
+  margin-bottom: 1rem;
+}
+.modal-text {
+  font-size: 0.95rem;
+  line-height: 1.82;
+  color: var(--text-b);
+  margin-bottom: 2rem;
+}
+.modal-confirm {
+  background: linear-gradient(135deg, var(--rosa) 0%, var(--rosa-mid) 100%);
+  color: #fff;
+  padding: 0.85rem 2.6rem;
+  border-radius: var(--r-btn);
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: var(--sh-btn);
+  transition: transform var(--tr), box-shadow var(--tr);
+}
+.modal-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(200, 130, 140, 0.42);
+}
+
+/* ════════════════════════════════════════════════════
+   CANVAS CONFETTI
+════════════════════════════════════════════════════ */
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════ */
+
+/* ─── Tablet grande ≤ 960px ─────────────────────── */
+@media (max-width: 960px) {
+  .sticker-hero {
+    width: clamp(180px, 28vw, 310px);
+    right: 2%;
+  }
+  .sticker-a { width: clamp(80px, 10vw, 120px); }
+  .sticker-b { width: clamp(75px, 9vw, 110px); }
+}
+
+/* ─── Tablet ≤ 768px ─────────────────────────────── */
+@media (max-width: 768px) {
+  /* Open screen: foto spostata in alto a destra */
+  .open-photo {
+    width: clamp(130px, 28vw, 210px);
+    top: 3%;
+    bottom: auto;
+    right: 2%;
+  }
+  .open-sticker-sm { display: none; }
+
+  /* Hero: sticker laterale si rimpicciolisce */
+  .sticker-hero {
+    width: clamp(160px, 24vw, 260px);
+    right: 1%;
+  }
+
+  /* Testo invito */
+  .invitation-card { padding: 2.2rem 2rem; }
+  .invite-sticker-float { display: none; }
+
+  /* Dettagli: 3 colonne compatte */
+  .details-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+  }
+  .detail-card { padding: 1.5rem 1rem; }
+  .detail-value { font-size: 1rem; }
+}
+
+/* ─── Mobile ≤ 640px ─────────────────────────────── */
+@media (max-width: 640px) {
+
+  /* — OPEN SCREEN — */
+  /* Layout colonna: foto sopra la card bottom-sheet */
+  .open-screen {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+  }
+  /* Foto diventa elemento di flusso, compare sopra la card */
+  .open-photo {
+    position: relative;
+    top: auto; bottom: auto; right: auto;
+    order: -1;                          /* appare prima della card */
+    width: clamp(130px, 44vw, 185px);
+    margin-bottom: -70px;               /* foto scende sotto il bordo della card */
+    z-index: 1;                         /* card sopra, foto sotto */
+    transform: rotate(-2deg);
+    animation: photoSway 6s ease-in-out infinite;
+  }
+  .open-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 32px 32px 0 0;
+    padding: 2.4rem 1.8rem max(3rem, calc(1.8rem + env(safe-area-inset-bottom)));
+    margin: 0;
+    order: 0;
+    position: relative;
+    z-index: 2;                         /* sopra la foto */
+  }
+  .open-sticker-sm { display: none; }
+  /* Stelle: meno invasive su mobile */
+  .sp1, .sp6 { display: none; }
+
+  /* — HERO — */
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5rem 1.2rem 4.5rem;
+    min-height: 100svh;
+    min-height: 100vh;
+    gap: 0;
+  }
+
+  /* Foto principale: esce dal flusso assoluto e
+     diventa il primo elemento sopra il testo */
+  .sticker-hero {
+    position: relative;
+    top: auto; right: auto; bottom: auto;
+    width: clamp(160px, 58vw, 230px);
+    margin: 0 auto 1.8rem;
+    transform: rotate(2deg);
+    animation: stickerSway 7s ease-in-out infinite;
+    --r: 2deg;
+  }
+
+  /* Sticker angolari: nascosti su mobile per non
+     sovrapporsi al testo nella colonna */
+  .sticker-a,
+  .sticker-b { display: none; }
+
+  .hero-text { max-width: 100%; }
+
+  .scroll-hint { bottom: 1.5rem; }
+
+  /* — SEZIONI — */
+  .section { padding: 3rem 0; }
+  .container { padding: 0 1.2rem; }
+
+  /* Nota */
+  .note-card { padding: 1.8rem 1.4rem; }
+  .note-main { font-size: 1rem; }
+
+  /* Countdown */
+  .cd-label { font-size: 1.2rem; margin-bottom: 1.5rem; }
+  .cd-grid  { gap: 0.3rem; flex-wrap: nowrap; }
+  .cd-item  { min-width: 0; flex: 1; padding: 0.9rem 0.5rem; }
+  .cd-num   { font-size: clamp(1.5rem, 6.5vw, 2rem); }
+  .cd-unit  { font-size: 0.58rem; }
+  .cd-sep   { font-size: 1.4rem; flex-shrink: 0; }
+
+  /* Dettagli: colonna singola */
+  .details-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
+    gap: 0.9rem;
+  }
+  .detail-card  { padding: 1.4rem 1.2rem; }
+  .detail-value { font-size: 1.1rem; }
+
+  /* Invito */
+  .invitation-card { padding: 1.8rem 1.4rem; }
+  .invite-greeting  { font-size: 1.6rem; }
+  .invite-body p    { font-size: 0.93rem; line-height: 1.8; }
+  .invite-closing   { font-size: 1.1rem; }
+  /* Cuore decorativo fuori card: nascosto su mobile */
+  .invitation-card::after { display: none; }
+
+  /* Gallery: 2×2 */
+  .gallery-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 340px;
+    margin: 0 auto;
+    justify-items: center;
+  }
+  .gallery-sticker { animation: none; } /* stop sway in grid */
+  .gs-1, .gs-2, .gs-3, .gs-4 {
+    width: clamp(110px, 38vw, 155px);
+    --r: 0deg;
+  }
+  /* Leggera rotazione alternata */
+  .gs-1 { transform: rotate(-4deg); }
+  .gs-2 { transform: rotate(3deg); }
+  .gs-3 { transform: rotate(5deg); }
+  .gs-4 { transform: rotate(-3deg); }
+
+  /* RSVP */
+  .rsvp-btn {
+    padding: 1rem 2.4rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Footer */
+  .site-footer { padding: 3rem 1.2rem max(2.5rem, calc(1.5rem + env(safe-area-inset-bottom))); }
+  .footer-main { font-size: 1.4rem; }
+
+  /* Modal */
+  .modal-box { padding: 2.4rem 1.8rem; }
+  .modal-confirm {
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+  }
+}
+
+/* ─── Mobile ≤ 480px ─────────────────────────────── */
+@media (max-width: 480px) {
+  /* Open screen: foto più piccola */
+  .open-photo {
+    width: clamp(110px, 40vw, 160px);
+    margin-bottom: -60px;
+  }
+
+  /* Hero: foto più piccola */
+  .sticker-hero { width: clamp(140px, 52vw, 200px); }
+
+  /* Countdown: testo più compatto */
+  .cd-item  { padding: 0.8rem 0.4rem; }
+  .cd-num   { font-size: clamp(1.35rem, 6vw, 1.8rem); }
+
+  /* Invito */
+  .invitation-card { padding: 1.6rem 1.2rem; }
+
+  /* Titolo sezione */
+  .section-title { font-size: 1.5rem; margin-bottom: 1.8rem; }
+}
+
+/* ─── Mobile piccolo ≤ 390px ─────────────────────── */
+@media (max-width: 390px) {
+  /* Open card: padding minimo */
+  .open-card { padding: 1.8rem 1.4rem 2.4rem; }
+  .open-title { font-size: 1.3rem; }
+  .open-name  { font-size: 2rem; }
+  .open-photo { width: 38vw; margin-bottom: -55px; }
+
+  /* Hero */
+  .hero { padding: 4.5rem 1rem 4rem; }
+  .sticker-hero { width: 50vw; margin-bottom: 1.4rem; }
+  .heading-name { font-size: clamp(3rem, 12vw, 3.8rem); }
+
+  /* Countdown: nascondi separatori, testo ancora più piccolo */
+  .cd-sep  { display: none; }
+  .cd-grid { gap: 0.4rem; }
+  .cd-item { padding: 0.75rem 0.5rem; border-radius: 14px; }
+  .cd-num  { font-size: 1.5rem; }
+
+  /* Dettagli */
+  .details-grid { max-width: 280px; }
+
+  /* Gallery */
+  .gallery-row { gap: 0.9rem; max-width: 300px; }
+  .gs-1, .gs-2, .gs-3, .gs-4 { width: clamp(95px, 34vw, 135px); }
+
+  /* Note card */
+  .note-card  { padding: 1.5rem 1.1rem; }
+  .note-main  { font-size: 0.95rem; }
+  .note-sub   { font-size: 0.88rem; }
+
+  /* Invito */
+  .invite-body p { font-size: 0.88rem; }
+  .container { padding: 0 1rem; }
+}

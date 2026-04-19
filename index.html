@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FFF9F2" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="description" content="Invito al primo compleanno di Amelia — 1 maggio, ore 12:00, La Taverna della Nonna Marina" />
+  <title>Il Primo Compleanno di Amelia 🌸</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Dancing+Script:wght@500;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       LOADING OVERLAY
+  ════════════════════════════════════ -->
+  <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+    <div class="loading-inner">
+      <div class="loading-balloon">🎈</div>
+      <p class="loading-text">Un momento...</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       OPEN SCREEN — «Apri l'invito»
+  ════════════════════════════════════ -->
+  <div class="open-screen" id="openScreen">
+    <!-- Sfondo decorativo: stelle fluttuanti -->
+    <span class="sparkle sp1" aria-hidden="true">✦</span>
+    <span class="sparkle sp2" aria-hidden="true">♡</span>
+    <span class="sparkle sp3" aria-hidden="true">✦</span>
+    <span class="sparkle sp4" aria-hidden="true">♡</span>
+    <span class="sparkle sp5" aria-hidden="true">✦</span>
+    <span class="sparkle sp6" aria-hidden="true">♡</span>
+
+    <!-- Card centrale -->
+    <div class="open-card">
+      <p class="open-top-ornament" aria-hidden="true">✦ ♡ ✦</p>
+      <div class="open-envelope" aria-hidden="true">💌</div>
+      <p class="open-eyebrow">hai ricevuto</p>
+      <h1 class="open-title">Un invito speciale</h1>
+      <p class="open-subtitle">
+        per il primo compleanno di<br>
+        <span class="open-name">Amelia</span>
+      </p>
+      <button class="open-btn" id="openBtn">
+        Apri l'invito <span aria-hidden="true">✨</span>
+      </button>
+    </div>
+
+    <!-- Foto decorativa sull'open screen -->
+    <figure class="open-photo" aria-label="Amelia">
+      <img src="images/Amelia1.png" alt="Amelia" />
+    </figure>
+
+    <!-- Sticker piccolo angolo -->
+    <figure class="open-sticker-sm" aria-label="Amelia">
+      <img src="images/Amelia3.png" alt="Amelia" />
+    </figure>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       CONTENUTO PRINCIPALE
+  ════════════════════════════════════ -->
+  <main class="invite-content" id="inviteContent">
+
+    <!-- Decorazioni di sfondo fisse -->
+    <div class="bg-deco-layer" aria-hidden="true">
+      <span class="bd bd1">✦</span>
+      <span class="bd bd2">♡</span>
+      <span class="bd bd3">✦</span>
+      <span class="bd bd4">♡</span>
+      <span class="bd bd5">✦</span>
+      <span class="bd bd6">♡</span>
+    </div>
+
+    <!-- ─────────────────────────────────
+         HERO SECTION
+    ────────────────────────────────── -->
+    <section class="hero" id="hero">
+
+      <!-- Foto principale — decorazione hero -->
+      <figure class="sticker sticker-hero" aria-label="Amelia — foto principale">
+        <img src="images/Amelia2.png" alt="Amelia, la festeggiata" />
+      </figure>
+
+      <!-- Sticker piccolo 1 -->
+      <figure class="sticker sticker-sm sticker-a" aria-label="Amelia">
+        <img src="images/Amelia2.png" alt="Amelia" />
+      </figure>
+
+      <!-- Sticker piccolo 2 -->
+      <figure class="sticker sticker-sm sticker-b" aria-label="Amelia">
+        <img src="images/Amelia4.png" alt="Amelia" />
+      </figure>
+
+      <!-- Testo hero -->
+      <div class="hero-text">
+        <div class="hero-badge">🌸 primo compleanno 🌸</div>
+
+        <h2 class="hero-heading">
+          <span class="heading-il">Il primo compleanno di</span>
+          <span class="heading-name">Amelia</span>
+        </h2>
+
+        <p class="hero-sub">
+          Un anno di sorrisi meravigliosi,<br>
+          di piccole mani e di tanto, tanto amore.
+        </p>
+
+        <div class="hero-ornament" aria-hidden="true">
+          <span>✦</span><span>✦</span><span>✦</span>
+        </div>
+
+        <p class="hero-when">1 maggio · ore 12:00</p>
+      </div>
+
+      <!-- Freccia scroll -->
+      <div class="scroll-hint" aria-hidden="true">
+        <span class="scroll-label">Scopri di più</span>
+        <div class="scroll-arrow">↓</div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────
+         NOTA COMPLEANNO REALE
+    ────────────────────────────────── -->
+    <section class="section note-section reveal" id="notaCompleanno">
+      <div class="container">
+        <div class="note-card">
+          <span class="note-emoji" aria-hidden="true">🎂</span>
+          <p class="note-main">
+            Amelia compie <strong>1 anno</strong> il <strong>28 aprile</strong>,
+          </p>
+          <p class="note-sub">
+            ma festeggiamo tutti insieme il <strong>1 maggio</strong> —<br>
+            perché le cose più belle meritano di essere celebrate<br>
+            con le persone che si amano.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────
+         COUNTDOWN
+    ────────────────────────────────── -->
+    <section class="section countdown-section reveal" id="countdownSection">
+      <div class="container">
+        <p class="cd-label" id="cdLabel">Mancano ancora...</p>
+
+        <div class="cd-grid" id="cdGrid">
+          <div class="cd-item">
+            <span class="cd-num" id="cdDays">--</span>
+            <span class="cd-unit">giorni</span>
+          </div>
+          <div class="cd-sep" aria-hidden="true">:</div>
+          <div class="cd-item">
+            <span class="cd-num" id="cdHours">--</span>
+            <span class="cd-unit">ore</span>
+          </div>
+          <div class="cd-sep" aria-hidden="true">:</div>
+          <div class="cd-item">
+            <span class="cd-num" id="cdMinutes">--</span>
+            <span class="cd-unit">minuti</span>
+          </div>
+          <div class="cd-sep" aria-hidden="true">:</div>
+          <div class="cd-item">
+            <span class="cd-num" id="cdSeconds">--</span>
+            <span class="cd-unit">secondi</span>
+          </div>
+        </div>
+
+        <!-- Mostrato solo se la festa è già arrivata -->
+        <p class="party-arrived" id="partyArrived" style="display:none">
+          🎉 La festa è arrivata! Benvenuti, amici! 🎉
+        </p>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────
+         DETTAGLI (DATA, ORA, LUOGO)
+    ────────────────────────────────── -->
+    <section class="section details-section reveal" id="dettagli">
+      <div class="container">
+        <h2 class="section-title">Dove e quando</h2>
+
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-icon" aria-hidden="true">📅</div>
+            <div class="detail-label">Data della festa</div>
+            <div class="detail-value">1 maggio 2026</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon" aria-hidden="true">🕛</div>
+            <div class="detail-label">Orario</div>
+            <div class="detail-value">ore 12:00</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon" aria-hidden="true">📍</div>
+            <div class="detail-label">Luogo</div>
+            <div class="detail-value">La Taverna della Nonna Marina</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────
+         TESTO INVITO + STICKER EXTRA
+    ────────────────────────────────── -->
+    <section class="section invitation-section reveal" id="invito">
+      <div class="container">
+
+        <!-- Sticker decorativo nella sezione invito -->
+        <figure class="invite-sticker-float" aria-label="Amelia">
+          <img src="images/Amelia5.png" alt="Amelia" />
+        </figure>
+
+        <div class="invitation-card">
+          <h3 class="invite-greeting">Cari amici,</h3>
+
+          <div class="invite-body">
+            <p>
+              Con il cuore colmo di gioia e di gratitudine, vi invitiamo a celebrare
+              insieme a noi il primo anno di vita della nostra piccola <strong>Amelia</strong>.
+            </p>
+            <p>
+              Un anno di scoperte quotidiane, di primi sorrisi e di sguardi meravigliati
+              sul mondo — e noi sempre al suo fianco, a custodire ogni momento prezioso.
+            </p>
+            <p>
+              Volevamo condividere questa giornata speciale con le persone più care: <em>voi</em>.
+              Perché un compleanno diventa davvero magico quando si è circondati
+              dall'affetto di chi si ama.
+            </p>
+            <p>
+              Vi aspettiamo il <strong>1 maggio</strong> alle <strong>ore 12:00</strong>
+              alla <strong>La Taverna della Nonna Marina</strong>.
+            </p>
+          </div>
+
+          <p class="invite-closing">Con tutto il nostro affetto 🌸</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────
+         GALLERY STICKERS (extra foto)
+    ────────────────────────────────── -->
+    <section class="section sticker-gallery reveal" id="gallery" aria-label="Foto di Amelia">
+      <div class="container">
+        <div class="gallery-row">
+          <figure class="gallery-sticker gs-1" aria-label="Amelia">
+            <img src="images/Amelia5.png" alt="Amelia" />
+          </figure>
+          <figure class="gallery-sticker gs-2" aria-label="Amelia">
+            <img src="images/Amelia6.png" alt="Amelia" />
+          </figure>
+          <figure class="gallery-sticker gs-3" aria-label="Amelia">
+            <img src="images/Amelia7.png" alt="Amelia" />
+          </figure>
+          <figure class="gallery-sticker gs-4" aria-label="Amelia">
+            <img src="images/Amelia3.png" alt="Amelia" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────
+         RSVP
+    ────────────────────────────────── -->
+    <section class="section rsvp-section reveal" id="rsvp">
+      <div class="container">
+        <h2 class="section-title">Ci sarete?</h2>
+        <p class="rsvp-sub">La vostra presenza è il regalo più bello per Amelia.</p>
+        <button class="rsvp-btn" id="rsvpBtn">Ti aspettiamo! 🎈</button>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────
+         FOOTER
+    ────────────────────────────────── -->
+    <footer class="site-footer">
+      <p class="footer-ornament" aria-hidden="true">✦ ♡ ✦</p>
+      <p class="footer-main">Con affetto, la famiglia di Amelia</p>
+      <p class="footer-date">28 aprile · il giorno più bello ♡</p>
+    </footer>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       MODAL RSVP
+  ════════════════════════════════════ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Conferma presenza">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" id="modalClose" aria-label="Chiudi">✕</button>
+      <div class="modal-icon" aria-hidden="true">🎊</div>
+      <h3 class="modal-heading">Che gioia!</h3>
+      <p class="modal-text">
+        Non vediamo l'ora di festeggiare insieme a te!<br><br>
+        Per confermare la tua presenza contatta la famiglia di Amelia —
+        la tua risposta è già un dono meraviglioso. 💛
+      </p>
+      <button class="modal-confirm" id="modalConfirm">Grazie, ci sarò! 🌸</button>
+    </div>
+  </div>
+
+  <!-- Canvas confetti -->
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
