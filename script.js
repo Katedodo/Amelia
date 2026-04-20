@@ -4,7 +4,7 @@
 
 /* ─── CONFIGURAZIONE ─────────────────────────────── */
 // Data e ora della festa (anno 2026, mese 4 = maggio, giorno 1, ore 12:00)
-const PARTY_DATE = new Date(2026, 4, 1, 12, 0, 0);
+const PARTY_DATE = new Date(2026, 4, 1, 12, 30, 0);
 
 /* ─── RIFERIMENTI DOM ────────────────────────────── */
 const loadingOverlay = document.getElementById('loadingOverlay');
@@ -295,8 +295,6 @@ function launchConfetti() {
 /* ═════════════════════════════════════════════════════
    7. SMOOTH SCROLL per il tasto "Scopri di più"
 ═════════════════════════════════════════════════════ */
-// (già gestito da CSS scroll-behavior: smooth,
-//  ma aggiungiamo click sul scroll-hint per sicurezza)
 const scrollHint = document.querySelector('.scroll-hint');
 if (scrollHint) {
   scrollHint.addEventListener('click', () => {
@@ -304,3 +302,50 @@ if (scrollHint) {
     if (noteSection) noteSection.scrollIntoView({ behavior: 'smooth' });
   });
 }
+
+/* ═════════════════════════════════════════════════════
+   8. DRAG-TO-SCROLL per la galleria mensile
+   Mouse: click + trascina. Touch: nativo (overflow-x).
+═════════════════════════════════════════════════════ */
+function initMeseStrip() {
+  const strip = document.getElementById('meseStrip');
+  if (!strip) return;
+
+  let isDragging = false;
+  let startX     = 0;
+  let startScrollLeft = 0;
+
+  strip.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    strip.classList.add('is-grabbing');
+    startX = e.pageX - strip.offsetLeft;
+    startScrollLeft = strip.scrollLeft;
+    e.preventDefault();
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    strip.classList.remove('is-grabbing');
+  });
+
+  strip.addEventListener('mouseleave', () => {
+    isDragging = false;
+    strip.classList.remove('is-grabbing');
+  });
+
+  strip.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x    = e.pageX - strip.offsetLeft;
+    const walk = (x - startX) * 1.6;
+    strip.scrollLeft = startScrollLeft - walk;
+  });
+
+  // Scroll centrato sulla prima card al reveal
+  strip.scrollLeft = 0;
+}
+
+// Inizializza dopo che il contenuto diventa visibile
+document.getElementById('openBtn').addEventListener('click', () => {
+  setTimeout(initMeseStrip, 900);
+}, { once: true });
