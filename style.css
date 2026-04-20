@@ -767,15 +767,16 @@ figure { margin: 0; }
 /* Strip orizzontale */
 .mese-strip {
   display: flex;
+  flex-wrap: nowrap;          /* Safari: impedisce il wrapping */
   gap: 1.6rem;
-  padding: 1.5rem 3rem 2.5rem;
+  padding: 2.5rem 3rem 3rem;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;         /* non può coesistere visible + auto */
   scroll-snap-type: x mandatory;
+  -webkit-scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   cursor: grab;
-  /* spazio verticale per le rotazioni */
   align-items: center;
 }
 .mese-strip::-webkit-scrollbar { display: none; }
@@ -1200,7 +1201,7 @@ figure { margin: 0; }
 
   /* Mese dopo mese */
   .mese-section { padding: 4rem 0 2rem; }
-  .mese-strip { padding: 1.2rem 1.5rem 2rem; gap: 1.2rem; }
+  .mese-strip { padding: 2rem 1.5rem 2.5rem; gap: 1.2rem; }
   .mese-card { width: 148px; }
   .mese-scroll-hint { display: block; }
 
